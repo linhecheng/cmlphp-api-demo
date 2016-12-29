@@ -15,7 +15,7 @@
 查看配置,我们看到在配置中我们配置了V1版本有注册、登录两个接口。
 
 我们来看下其中的注册接口
-![](http://o7v4k1oiv.bkt.clouddn.com/apidemo1.png)
+![](http://cdn.51beautylife.com/apidemo1.png)
 
 我们看到了注释中的接口描述、参数、请求示例、返回成功/失败示例。
 
@@ -26,7 +26,7 @@
 ![](http://cdn.51beautylife.com/apilayuid.jpg)
 
 > bootstrap主题
-![](http://o7v4k1oiv.bkt.clouddn.com/apidemo3.png)
+![](http://cdn.51beautylife.com/apidemo3.png)
 我们看到了自动生成的接口文档。很简单吧。动起来吧。
 
 开发过程中的目录及程序接口请参考 [CmlPHP V2.x开发手册](http://doc.cmlphp.com)
