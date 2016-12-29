@@ -22,6 +22,10 @@
 请修改`api.php`中相应的`lookup_doc_key`。
 打开文档查看地址http://xxx/index.php/api/Bootstrap/doc/key/lookup_doc_key
 
+> layui主题v2.7.5起默认主题
+![](http://cdn.51beautylife.com/apilayuid.jpg)
+
+> bootstrap主题
 ![](http://o7v4k1oiv.bkt.clouddn.com/apidemo3.png)
 我们看到了自动生成的接口文档。很简单吧。动起来吧。
 
