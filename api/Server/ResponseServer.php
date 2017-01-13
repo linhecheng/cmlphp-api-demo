@@ -16,8 +16,17 @@ class ResponseServer extends Server
      * @param int $msg
      * @param array $data
      */
-    public static function renderJson($code, $msg, $data = array())
+    public static function renderJson($code, $msg, $data = [])
     {
+        if (is_array($msg)) {
+            $data = $msg;
+            $msg = '';
+        }
+        if (!$msg) {
+            $api = Config::load('api', false);
+            $msg = $api['code'][$code];
+        }
+
         View::getEngine('Json')
             ->assign('code', $code)
             ->assign('msg', $msg)
@@ -33,7 +42,7 @@ class ResponseServer extends Server
      * @param array $data
      * @param array $req
      */
-    public static function renderJsonWithLog($code, $msg, &$data = array(), $req = array())
+    public static function renderJsonWithLog($code, $msg, &$data = [], $req = [])
     {
         if (Config::get('default_cache.driver') == 'Redis') {
             $config = Config::load('api', false);
@@ -52,10 +61,6 @@ class ResponseServer extends Server
             }
         }
 
-        View::getEngine('Json')
-            ->assign('code', $code)
-            ->assign('msg', $msg)
-            ->assignByRef('data', $data)
-            ->display();
+        self::renderJson($code, $msg, $data);
     }
 }

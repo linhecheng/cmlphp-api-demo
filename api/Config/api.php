@@ -9,7 +9,7 @@ str;
 $apiConfig = [
     //是否开启文档自动解析
     'annotation_to_doc' => 'lookup_doc_key',//开启文档解析 查看的key为lookup_doc_key 。false为关闭
-    'access_look_doc_ip_list' =>[//允许查看文档的ip列表
+    'access_look_doc_ip_list' => [//允许查看文档的ip列表
         '127.0.0.1'
     ],
 
@@ -22,7 +22,7 @@ $apiConfig = [
     'doc_name' => '测试接口文档', //生成接口文档时做为标题
 
     //key  来源=>key
-    'key' =>[
+    'key' => [
         'web' => 'lxln-33k545xc00-354.xb-3dfgd',
         'android' => 'eo,ngn00eo-5930.b..sdeo-3n.gls03x',
         'ios' => '4j90f3jt-343fjdjf-l93nd'
@@ -52,7 +52,7 @@ $apiConfig = [
     //黑名单
     'black_list' => [
         'ios' => [
-            'V1' =>[
+            'V1' => [
                 '1-2'
             ]
         ],
@@ -70,16 +70,12 @@ $apiConfig = [
         ],
     ],
     //自定义返回code说明 ，自动生成文档时显示
-    'code' => [
-        '0' => '成功',
-        '-1' => '失败',
-        //.....
-    ]
+    'code' => require __DIR__ . DIRECTORY_SEPARATOR . 'code.php'
 ];
 
 //包含上级环境中的配置并合并
-$globalApiConfig = \Cml\Cml::getApplicationDir('global_config_path').DIRECTORY_SEPARATOR
-    .  \Cml\Config::$isLocal.DIRECTORY_SEPARATOR.'api'.'.php';
+$globalApiConfig = \Cml\Cml::getApplicationDir('global_config_path') . DIRECTORY_SEPARATOR
+    . \Cml\Config::$isLocal . DIRECTORY_SEPARATOR . 'api' . '.php';
 
 if (is_file($globalApiConfig)) {
     $apiConfig = array_merge($apiConfig, \Cml\Cml::requireFile($globalApiConfig));

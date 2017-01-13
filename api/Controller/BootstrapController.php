@@ -51,11 +51,11 @@ class BootstrapController extends Controller
         self::setRequestData($requestData);
 
         if (empty($requestData) || !$requestData = json_decode($requestData, true)) {
-            $this->renderJson(1001, 'error args root');
+            $this->renderJson(1001);//error args root
         }
 
         if (!isset($requestData['system']) || !isset($requestData['method']) || !isset($requestData['params'])) {
-            $this->renderJson(1002, 'error args');
+            $this->renderJson(1002);//error args
         }
 
         $config = Config::load('api', false);
@@ -66,7 +66,7 @@ class BootstrapController extends Controller
             || md5($config['key'][$requestData['system']['from']].$requestData['system']['time']) != $requestData['system']['sign']
 
         ) {
-            $this->renderJson(1003, 'error args sign');
+            $this->renderJson(1003);//error args sign
         }
 
         //判断请求是否过期
@@ -75,7 +75,7 @@ class BootstrapController extends Controller
             $config['token_expire'][$requestData['system']['from']] > 0 &&
             $config['token_expire'][$requestData['system']['from']] + $requestData['system']['time'] < Cml::$nowTime
         ) {
-            $this->renderJson(1004, 'sign time out!');
+            $this->renderJson(1004);//sign time out!
         }
 
         //判断ip限制
@@ -84,7 +84,7 @@ class BootstrapController extends Controller
             count($config['ip_deny'][$requestData['system']['from']]) > 0 &&
             !in_array(Request::ip(), $config['ip_deny'][$requestData['system']['from']])
         ) {
-            $this->renderJson(1005, 'access deny');
+            $this->renderJson(1005);//ip deny
         }
 
         //判断请求的接口版本 及 方法名是否存在
@@ -93,7 +93,7 @@ class BootstrapController extends Controller
             !isset($config['version'][$requestData['system']['version']]) ||
             !isset($config['version'][$requestData['system']['version']][$requestData['method']])
         ) {
-            $this->renderJson(1006, 'error args version/method');
+            $this->renderJson(1006);//error args version/method
         }
 
         //判断来源是否有某个方法的权限-白名单
@@ -105,7 +105,7 @@ class BootstrapController extends Controller
                 !in_array($requestData['method'], $config['white_list'][$requestData['system']['from']][$requestData['system']['version']])
             )
         ) {
-            $this->renderJson(1007, 'access deny');
+            $this->renderJson(1007);//access deny
         }
 
         //判断来源是否有某个方法的权限-黑名单
@@ -115,7 +115,7 @@ class BootstrapController extends Controller
             isset($config['black_list'][$requestData['system']['from']][$requestData['system']['version']]) &&
             in_array($requestData['method'], $config['black_list'][$requestData['system']['from']][$requestData['system']['version']])
         ) {
-            $this->renderJson(1007, 'access deny');
+            $this->renderJson(1007);//'access deny'
         }
 
 
@@ -131,7 +131,7 @@ class BootstrapController extends Controller
             $api->$action($requestData['params']);
             exit();
         } else {
-            $this->renderJson(1008, 'not found');
+            $this->renderJson(1008);//not found
         }
     }
 
@@ -140,9 +140,9 @@ class BootstrapController extends Controller
      *
      * @param $code
      * @param $msg
-     * @param string $data
+     * @param array $data
      */
-    protected function renderJson($code = 0, $msg = '', &$data = '')
+    protected function renderJson($code = 0, $msg = '', &$data = [])
     {
         ResponseServer::renderJsonWithLog($code, $msg, $data, self::getRequestData());
     }
