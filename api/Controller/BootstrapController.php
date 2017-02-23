@@ -48,11 +48,12 @@ class BootstrapController extends Controller
     public function run()
     {
         $requestData = Request::getBinaryData();
-        self::setRequestData($requestData);
 
         if (empty($requestData) || !$requestData = json_decode($requestData, true)) {
             $this->renderJson(1001);//error args root
         }
+
+        self::setRequestData($requestData);
 
         if (!isset($requestData['system']) || !isset($requestData['method']) || !isset($requestData['params'])) {
             $this->renderJson(1002);//error args
@@ -125,7 +126,7 @@ class BootstrapController extends Controller
         $action = substr($action, $pos + 1);
 
         class_exists($controller) || $this->renderJson(10002, 'not found');
-        $api = new $controller(self::getRequestData());
+        $api = new $controller(self::getRequestData(), $requestData['params']);
 
         if (method_exists($api, $action)) {
             $api->$action($requestData['params']);
