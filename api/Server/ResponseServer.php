@@ -6,6 +6,7 @@ use Cml\Model;
 use Cml\Secure;
 use Cml\Server;
 use Cml\View;
+use api\Controller\BootstrapController;
 
 class ResponseServer extends Server
 {
@@ -40,12 +41,12 @@ class ResponseServer extends Server
      * @param int $code
      * @param int $msg
      * @param array $data
-     * @param array $req
      */
-    public static function renderJsonWithLog($code, $msg, &$data = [], $req = [])
+    public static function renderJsonWithLog($code, $msg, &$data = [])
     {
         if (Config::get('default_cache.driver') == 'Redis') {
             $config = Config::load('api', false);
+            $req = BootstrapController::getRequestData();
             if ($config['api_log_on_redis_list_name']) {
                 Model::getInstance()->cache()->getInstance()->lPush($config['api_log_on_redis_list_name'], json_encode([
                     'api' => $req['method'],
@@ -57,7 +58,7 @@ class ResponseServer extends Server
                         'data' => $data
                     ], JSON_UNESCAPED_UNICODE),
                     'ctime' => Cml::$nowTime
-                ], JSON_UNESCAPED_UNICODE ));
+                ], JSON_UNESCAPED_UNICODE));
             }
         }
 

@@ -5,13 +5,6 @@ use api\Server\ResponseServer;
 
 class CommonController extends Controller
 {
-    protected $requestData = [];
-
-    public function __construct(&$requestData = [])
-    {
-        $this->requestData = $requestData;
-    }
-
     /**
      * 渲染json
      *
@@ -21,6 +14,6 @@ class CommonController extends Controller
      */
     protected function renderJson($code = 0, $msg = '', &$data = [])
     {
-        ResponseServer::renderJsonWithLog($code, $msg, $data, $this->requestData);
+        ResponseServer::renderJsonWithLog($code, $msg, $data);
     }
 }
