@@ -14,7 +14,7 @@ class ResponseServer extends Server
      * 渲染json输出
      *
      * @param int $code
-     * @param int $msg
+     * @param mixed $msg
      * @param array $data
      */
     public static function renderJson($code, $msg, $data = [])
@@ -39,10 +39,10 @@ class ResponseServer extends Server
      * 渲染json输出并记录log
      *
      * @param int $code
-     * @param int $msg
+     * @param mxied $msg
      * @param array $data
      */
-    public static function renderJsonWithLog($code, $msg, &$data = [])
+    public static function renderJsonWithLog($code, $msg = '', &$data = [])
     {
         if (Config::get('default_cache.driver') == 'Redis') {
             $config = Config::load('api', false);
