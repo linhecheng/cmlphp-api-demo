@@ -1,4 +1,4 @@
-<?php namespace api\Model\V1;
+<?php namespace api\Model;
 use Cml\Model;
 
 /**

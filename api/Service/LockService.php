@@ -1,13 +1,13 @@
-<?php namespace api\Server;
+<?php namespace api\Service;
 /* * *********************************************************
 * 锁的封装
 * @Author  linhecheng<linhechengbush@live.com>
 * @Date: 2016/4/26 11:05
 * *********************************************************** */
 use Cml\Lock;
-use Cml\Server;
+use Cml\Service;
 
-class LockServer extends Server
+class LockService extends Service
 {
     /**
      * 锁住某个值

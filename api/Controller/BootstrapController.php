@@ -5,6 +5,7 @@
  * @date 2015-04-23
  * @author linhecheng
  */
+
 namespace api\Controller;
 
 use Cml\Cml;
@@ -13,7 +14,7 @@ use Cml\Controller;
 use Cml\Http\Input;
 use Cml\Http\Request;
 use Cml\Tools\Apidoc\AnnotationToDoc;
-use api\Server\ResponseServer;
+use api\Service\ResponseService;
 
 class BootstrapController extends Controller
 {
@@ -64,7 +65,7 @@ class BootstrapController extends Controller
         //判断来源和key
         if (!isset($requestData['system']['from']) || !isset($requestData['system']['sign']) || !isset($requestData['system']['time'])
             || !isset($config['key'][$requestData['system']['from']])
-            || md5($config['key'][$requestData['system']['from']].$requestData['system']['time']) != $requestData['system']['sign']
+            || md5($config['key'][$requestData['system']['from']] . $requestData['system']['time']) != $requestData['system']['sign']
 
         ) {
             $this->renderJson(1003);//error args sign
@@ -126,7 +127,7 @@ class BootstrapController extends Controller
         $action = substr($action, $pos + 1);
 
         class_exists($controller) || $this->renderJson(10002, 'not found');
-        $api = new $controller();
+        $api = new $controller($requestData['params']);
 
         if (method_exists($api, $action)) {
             $api->$action($requestData['params']);
@@ -145,7 +146,7 @@ class BootstrapController extends Controller
      */
     protected function renderJson($code = 0, $msg = '', &$data = [])
     {
-        ResponseServer::renderJsonWithLog($code, $msg, $data, self::getRequestData());
+        ResponseService::renderJsonWithLog($code, $msg, $data);
     }
 
     /**
@@ -158,9 +159,9 @@ class BootstrapController extends Controller
         in_array(
             Request::ip(),
             $api['access_look_doc_ip_list']
-        ) ||  exit('access deny');
+        ) || exit('access deny');
 
-        if ($api['annotation_to_doc'] && Input::getString('key') == $api['annotation_to_doc'] ) {
+        if ($api['annotation_to_doc'] && Input::getString('key') == $api['annotation_to_doc']) {
             AnnotationToDoc::parse();
         } else {
             exit('access deny');

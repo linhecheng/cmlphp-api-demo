@@ -10,14 +10,14 @@ return [
     1 => '参数错误',
 
     /*系统消息*/
-    1001 => 'error args root',
-    1002 => 'error args',
-    1003 => 'error args sign',
-    1004 => 'sign time out!',
-    1005 => 'ip deny',
-    1006 => 'error args version/method',
-    1007 => 'access deny',
-    1008 => 'not found',
+    1001 => '未接收到post参数',
+    1002 => '未接收到system/method/params参数',
+    1003 => '签名sign错误',
+    1004 => '签名sign超时',
+    1005 => 'ip不在允许范围内',
+    1006 => '不存在这个方法',
+    1007 => '当前来源无权访问该接口',
+    1008 => '不存在这个方法',
 
     /*用户相关*/
     10001 => '用户名已被注册',
