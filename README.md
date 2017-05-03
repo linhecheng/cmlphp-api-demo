@@ -1,6 +1,8 @@
 # CmlPHP V2.x API项目示例
 
-本项目为基于CmlPHP V2.x开发的一个api项目示例。包含了api开发的两个接口示例以及根据代码注释自动生成文档的示例。
+本项目为基于CmlPHP V2.x开发的一个api项目示例。包含了api开发的两个接口示例以及根据代码注释自动生成文档及自动测试的示例。
+
+框架v2.7.7起支持api自动测试。
 
 还不知道什么是CmlPHP?[点这里了解](http://cmlphp.com/ "CmlPHP")
 
@@ -30,4 +32,11 @@
 我们看到了自动生成的接口文档。很简单吧。动起来吧。
 
 开发过程中的目录及程序接口请参考 [CmlPHP V2.x开发手册](http://doc.cmlphp.com)
+
+框架v2.7.7起支持api自动测试。
+> 通过web执行测试(容易超时)执行`\Cml\Tools\Apidoc\AutoTest::run('api', '0+1+2');`
+
+> 在命令行下测试(不会超时) `php index.php api-test --app=api --true_code=0+1+2`
+
+> 以上的参数`0+1+2`意思是接口返回的code除了0、1、2外其它的code均为失败
 
