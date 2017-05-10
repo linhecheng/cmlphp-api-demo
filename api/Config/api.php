@@ -34,6 +34,7 @@ $apiConfig = [
         'android' => 300,//5min秒超时
         'ios' => 300//5min秒超时
     ],
+    'use_nonce' => false,//是否验证nonce
     //ip限制
     'ip_deny' => [
         'web' => [//只允许某些ip访问

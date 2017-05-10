@@ -13,6 +13,7 @@ use Cml\Config;
 use Cml\Controller;
 use Cml\Http\Input;
 use Cml\Http\Request;
+use Cml\Model;
 use Cml\Tools\Apidoc\AnnotationToDoc;
 use api\Service\ResponseService;
 
@@ -120,13 +121,22 @@ class BootstrapController extends Controller
             $this->renderJson(1007);//'access deny'
         }
 
+        //判断是否开户验证use_nonce
+        if ($config['use_nonce']) {
+            (isset($requestData['system']['nonce']) && $requestData['system']['nonce']) || $this->renderJson(1010);
+            if (Model::getInstance()->cache()->get("api-nonce-{$requestData['system']['nonce']}")) {
+                $this->renderJson(1011);
+            } else {
+                Model::getInstance()->cache()->set("api-nonce-{$requestData['system']['nonce']}", 1, 300);
+            }
+        }
 
         $action = $config['version'][$requestData['system']['version']][$requestData['method']];
         $pos = strrpos($action, '\\');
         $controller = substr($action, 0, $pos);
         $action = substr($action, $pos + 1);
 
-        class_exists($controller) || $this->renderJson(1008, 'not found');
+        class_exists($controller) || $this->renderJson(1008);
         $api = new $controller($requestData['params']);
 
         if (method_exists($api, $action)) {
