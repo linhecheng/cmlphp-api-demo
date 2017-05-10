@@ -126,14 +126,14 @@ class BootstrapController extends Controller
         $controller = substr($action, 0, $pos);
         $action = substr($action, $pos + 1);
 
-        class_exists($controller) || $this->renderJson(10002, 'not found');
+        class_exists($controller) || $this->renderJson(1008, 'not found');
         $api = new $controller($requestData['params']);
 
         if (method_exists($api, $action)) {
             $api->$action($requestData['params']);
             exit();
         } else {
-            $this->renderJson(1008);//not found
+            $this->renderJson(1009);//not found
         }
     }
 
