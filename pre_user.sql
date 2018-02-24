@@ -34,4 +34,4 @@ CREATE TABLE IF NOT EXISTS `pre_user` (
   `ctime` int(10) NOT NULL,
    PRIMARY KEY (`id`),
    KEY `username` (`username`) 
-)  ENGINE=MyISAM DEFAULT CHARSET=utf8;
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
