@@ -47,7 +47,7 @@ class ResponseService
     public static function renderJsonWithLog($code, $msg = '', &$data = [])
     {
         if (Config::get('default_cache.driver') == 'Redis') {
-            $config = Config::load('api', false);
+            $config = Config::load('api', 'api');
             $req = BootstrapController::getRequestData();
 
             isset($reg['params']['img']) && $reg['params']['img'] = '';
